@@ -1,9 +1,9 @@
 html, body {
-    font-family: 'Cascadia Code', Verdana, sans-serif;
+    font-family: 'JetBrains Mono', Verdana, sans-serif;
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #757575;
+    background-color: #818181;
     box-sizing: border-box;
 }
 
@@ -40,13 +40,17 @@ html, body {
     height: 100px;
     width: 100%;    
     padding: 10px;
-    background-color: #757575;
+    background-color: rgba(85, 255, 102, 0.08);
 }
 
-#expression {    
-    width: 100%;    
+#expression-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
     font-size: 25px;
 }
+
 #cursor {
     font-size: 25px;
 }
@@ -60,7 +64,7 @@ html, body {
     gap: 15px;
 }
 
-.button {
+.wrapper button {
     width: 70px;
     height: 50px;
     border-radius: 6px;
@@ -71,12 +75,17 @@ html, body {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 8px;
 }
 
-.button:hover {
+.wrapper button:hover {
+    cursor: pointer;    
+}
+
+.wrapper button:active {
     cursor: pointer;
     -webkit-box-shadow: inset 0px 0px 5px #353535;
-     -moz-box-shadow: inset 0px 0px 5px #353535;
-          box-shadow: inset 0px 0px 5px #353535;
+    -moz-box-shadow: inset 0px 0px 5px #353535;
+        box-shadow: inset 0px 0px 5px #353535;
     outline: none;
+    transform: scale(0.97);
 }
 
 #clear-btn {
@@ -89,8 +98,18 @@ html, body {
     background-color: rgba(255, 110, 40, 0.8);
 }
 
-.operator {
-    color: rgb(40, 255, 120) !important;
+#percentage-btn,
+#divide-btn,
+#multiply-btn,
+#subtract-btn,
+#addition-btn,
+#equal-btn {
+    color: rgb(40, 255, 120);
+    font-size: 32px;
+}
+
+#percentage-btn {
+    font-size: 23px;
 }
 
 #equal-btn {
