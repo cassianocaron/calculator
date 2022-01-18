@@ -11,42 +11,45 @@
 </head>
 <body>
     <div class="container">
-        <div class="wrapper"
+        <div class="wrapper">
             <div class="display">
-                <div id="expression">5+5-7*9</div>
-                <div id="result">0123456789</div>
+                <div id="expression-container">
+                    <div id="expression">5+9*8/-56</div>
+                    <div id="cursor">|</div>
+                </div>
+                <div id="result">0</div>
             </div>
             <div class="row">
                 <button type="button" id="clear-btn">AC</button>
                 <button type="button" id="del-btn">DEL</button>
-                <button type="button" class="operator">%</button>
-                <button type="button" class="operator">/</button>
+                <button type="button" class="operator" id="percentage-btn">%</button>
+                <button type="button" class="operator" id="divide-btn">÷</button>
             </div>
             <div class="row">
                 <button type="button" class="number">7</button>
                 <button type="button" class="number">8</button>
                 <button type="button" class="number">9</button>
-                <button type="button" class="operator">x</button>
+                <button type="button" class="operator" id="multiply-btn">×</button>
             </div>
             <div class="row">
                 <button type="button" class="number">4</button>
                 <button type="button" class="number">5</button>
                 <button type="button" class="number">6</button>
-                <button type="button" class="operator">-</button>
+                <button type="button" class="operator" id="subtract-btn">−</button>
             </div>
             <div class="row">
                 <button type="button" class="number">1</button>
                 <button type="button" class="number">2</button>
                 <button type="button" class="number">3</button>
-                <button type="button" class="operator">+</button>
+                <button type="button" class="operator" id="addition-btn">+</button>
             </div>
             <div class="row">
-                <button type="button">+/-</button>
+                <button type="button">±</button>
                 <button type="button" class="number">0</button>
-                <button type="button">.</button>
+                <button type="button" class="number">.</button>
                 <button type="button" id="equal-btn">=</button>
             </div>
         </div>
-    </div>
+    </div>    
 </body>
 </html>
