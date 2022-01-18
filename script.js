@@ -1,19 +1,19 @@
-const expression = document.getElementById('expression');
+const input = document.getElementById('input');
 const result = document.getElementById('result');
-let expressArray = [];
+let expression = [];
 
 const clearBtn = document.getElementById('clear-btn');
 clearBtn.onclick = () => {
-    expression.textContent = '';
+    input.textContent = '';
     result.textContent = '0';
-    expressArray = [];
+    expression = [];
 }
 
 const deleteBtn = document.getElementById('del-btn');
 deleteBtn.onclick = () => {
     cursor = false;
-    expressArray.pop();
-    expression.textContent = expressArray.join('');
+    expression.pop();
+    input.textContent = expression.join('');
 }
 
 const numbers = document.querySelectorAll('.number');
@@ -32,10 +32,12 @@ operators.forEach(operator => {
     });
 });
 
-function appendInput(number) {    
-    expressArray.push(number);
-    return expression.textContent = expressArray.join('');
+const appendInput = (number) => {    
+    expression.push(number);
+    return input.textContent = expression.join('');
 }
+
+
 
 // Blinking cursor
 let cursor = true;
