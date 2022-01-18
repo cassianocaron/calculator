@@ -1,26 +1,34 @@
-const input = document.getElementById('input');
+const expression = document.getElementById('expression');
 const result = document.getElementById('result');
-let expression = [];
+const allClearBtn = document.getElementById('all-clear-btn');
+const deleteBtn = document.getElementById('delete-btn');
+let input = [];
 
-const clearBtn = document.getElementById('clear-btn');
-clearBtn.onclick = () => {
-    input.textContent = '';
-    result.textContent = '0';
-    expression = [];
+allClearBtn.onclick = () => {
+    clearAll();
 }
 
-const deleteBtn = document.getElementById('del-btn');
 deleteBtn.onclick = () => {
+    deleteItem();
+}
+
+const deleteItem = () => {
     cursor = false;
-    expression.pop();
-    input.textContent = expression.join('');
+    input.pop();
+    updateExpression();
+}
+
+const clearAll = () => {
+    expression.textContent = '';
+    result.textContent = '0';
+    input = [];
 }
 
 const numbers = document.querySelectorAll('.number');
 numbers.forEach(number => {
     number.addEventListener('click', () => {
         cursor = false;
-        appendInput(number.innerText);
+        appendItem(number.innerText);
     });
 });
 
@@ -28,16 +36,24 @@ const operators = document.querySelectorAll('.operator');
 operators.forEach(operator => {
     operator.addEventListener('click', () => {
         cursor = false;
-        appendInput(operator.innerText);
+        appendItem(operator.innerText);
     });
 });
 
-const appendInput = (number) => {    
-    expression.push(number);
-    return input.textContent = expression.join('');
+const plusMinusButton = document.getElementById('plus-minus-btn');
+plusMinusButton.addEventListener('click', () => {
+    (input[0] === '-') ? input.shift() : input.unshift('-');
+    updateExpression();
+});
+
+const appendItem = (item) => {
+    input.push(item);
+    updateExpression();
 }
 
-
+const updateExpression = () => {
+    expression.textContent = input.join('');
+}
 
 // Blinking cursor
 let cursor = true;
@@ -52,4 +68,3 @@ setInterval(() => {
         cursor = true;
     }
 }, speed);
-
