@@ -1,9 +1,14 @@
 html, body {
+    font-family: 'Cascadia Code', Verdana, sans-serif;
     height: 100%;
-    min-height: 100%;
     margin: 0;
     padding: 0;
-    background-color: rgb(46, 46, 46);
+    background-color: #757575;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
 }
 
 .container {
@@ -18,41 +23,77 @@ html, body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 15px;
     padding: 15px;
     border: 2px solid black;
-    border-radius: 5px;
+    border-radius: 12px;
+    background-color: #555555;
 }
 
 .display {
     display: flex;
+    flex-direction: column;
     align-items: flex-end;
-    justify-content: flex-end;    
-    font-size: 60px;
-    border: 1px solid black;
-    border-radius: 5px;
-    height: 80px;
-    width: 100%;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 6px;
+    height: 100px;
+    width: 100%;    
+    padding: 10px;
+    background-color: #757575;
 }
 
-.container button {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #525252;
-    border: none;
+#expression {    
+    width: 100%;    
     font-size: 25px;
-    box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 8px;
+}
+#cursor {
+    font-size: 25px;
+}
+
+#result {
+    font-size: 40px;
+}
+
+.row {
+    display: flex;
+    gap: 15px;
+}
+
+.button {
+    width: 70px;
+    height: 50px;
+    border-radius: 6px;
+    background-color: #353535;
+    color: white;
+    border: 2px solid black;
+    font-size: 25px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 8px;
+}
+
+.button:hover {
+    cursor: pointer;
+    -webkit-box-shadow: inset 0px 0px 5px #353535;
+     -moz-box-shadow: inset 0px 0px 5px #353535;
+          box-shadow: inset 0px 0px 5px #353535;
+    outline: none;
 }
 
 #clear-btn {
-    color: #DC143C;
+    color: black;
+    background-color: rgba(255, 30, 80, 0.8);    
+}
+
+#del-btn {
+    color: black;
+    background-color: rgba(255, 110, 40, 0.8);
 }
 
 .operator {
-    color: #00d170;
+    color: rgb(40, 255, 120) !important;
 }
 
 #equal-btn {
-    background-color: #00d170;
+    background-color: rgba(40, 255, 120, 0.8);
+    color: black;
 }
