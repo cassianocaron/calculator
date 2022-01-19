@@ -12,16 +12,16 @@ deleteBtn.onclick = () => {
     deleteItem();
 }
 
+const clearAll = () => {
+    expression.textContent = '';
+    result.textContent = '0';
+    input.length = 0;
+}
+
 const deleteItem = () => {
     cursor = false;
     input.pop();
     updateExpression();
-}
-
-const clearAll = () => {
-    expression.textContent = '';
-    result.textContent = '0';
-    input = [];
 }
 
 const numbers = document.querySelectorAll('.number');
@@ -30,7 +30,8 @@ numbers.forEach(number => {
         cursor = false;
         if (input[input.length - 1] === '.' && number.innerText === '.') {
             return;
-        } else {
+        }
+        if (input.length < 18) {
             appendItem(number.innerText);
         }
     });
@@ -40,7 +41,9 @@ const operators = document.querySelectorAll('.operator');
 operators.forEach(operator => {
     operator.addEventListener('click', () => {
         cursor = false;
-        appendItem(operator.innerText);
+        if (input.length < 18) {
+            appendItem(operator.innerText);
+        }
     });
 });
 
