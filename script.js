@@ -3,7 +3,7 @@ const result = document.getElementById('result');
 const allClearBtn = document.getElementById('all-clear-btn');
 const deleteBtn = document.getElementById('delete-btn');
 const equalsBtn = document.getElementById('equals-btn');
-let input = [];
+let expression = [];
 let firstNumber = [];
 let currentOperator;
 let secondNumber = [];
@@ -18,16 +18,16 @@ deleteBtn.onclick = () => {
 }
 
 const clearAll = () => {
-    expression.textContent = '';
+    upperDisplay.textContent = '';
     result.textContent = '0';
     firstNumber.length = 0;
     secondNumber.length = 0;
-    input.length = 0;
+    expression.length = 0;
 }
 
 const deleteItem = () => {
     cursor = false;
-    input.pop();
+    expression.pop();
     updateDisplay();
 }
 
@@ -77,7 +77,7 @@ const appendOperator = (operator) => {
 }
 
 const updateDisplay = () => {
-    let expression = firstNumber;
+    expression = firstNumber;
     console.log(expression);
     if (currentOperator) {
         expression.push(currentOperator);
