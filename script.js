@@ -39,7 +39,11 @@ const operators = document.querySelectorAll('.operator');
 operators.forEach(operator => {
     operator.addEventListener('click', () => {
         cursor = false;
-        appendItem(operator.innerText);
+        if (operator.innerText === 'n!') {
+            appendItem('!');
+        } else {
+            appendItem(operator.innerText);
+        }
     });
 });
 
@@ -77,6 +81,20 @@ const divide = (a, b) => {
 
 const factorial = (n) => {
     return (n < 2) ? 1 : n * factorial(n - 1);
+}
+
+const operate = (a, operator, b) => {
+    if (operator === '÷') {
+        divide(a, b);
+    } else if (operator === '×') {
+        multiply(a, b);
+    } else if (operator === '−') {
+        subtract(a, b);
+    } else if (operator === '+') {
+        add(a, b);
+    } else {
+        factorial(a);
+    }
 }
 
 const parseInput = () => {
