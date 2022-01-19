@@ -4,6 +4,10 @@ const allClearBtn = document.getElementById('all-clear-btn');
 const deleteBtn = document.getElementById('delete-btn');
 const equalsBtn = document.getElementById('equals-btn');
 let input = [];
+let firstNumber = [];
+let currentOperator;
+let nextOperator;
+let secondNumber = [];
 
 allClearBtn.onclick = () => {
     clearAll();
@@ -32,7 +36,7 @@ numbers.forEach(number => {
         if (input[input.length - 1] === '.' && number.innerText === '.') {
             return;
         }
-        appendItem(number.innerText);
+        appendNumber(number.innerText);
     });
 });
 
@@ -41,9 +45,9 @@ operators.forEach(operator => {
     operator.addEventListener('click', () => {
         cursor = false;
         if (operator.innerText === 'n!') {
-            appendItem('!');
+            appendOperator('!');
         } else {
-            appendItem(operator.innerText);
+            appendOperator(operator.innerText);
         }
     });
 });
@@ -54,10 +58,16 @@ plusMinusButton.addEventListener('click', () => {
     updateExpression();
 });
 
-const appendItem = (item) => {
-    input.push(item);
-    input.length = input.length < 15 ? input.length : 15;
-    updateExpression();
+const appendNumber = (number) => {
+    // if (firstNumber.includes('÷') || firstNumber.includes('×') || firstNumber.includes('−') || firstNumber.includes('+')) {
+    (currentOperator) ? firstNumber.push(number) : secondNumber.push(number);
+    // firstNumber.length = firstNumber.length < 15 ? firstNumber.length : 15;
+}
+
+const appendOperator = (operator) => {
+    if (firstNumber.length != 0) {
+        currentOperator = operator;
+    }
 }
 
 const updateExpression = () => {
