@@ -31,9 +31,7 @@ numbers.forEach(number => {
         if (input[input.length - 1] === '.' && number.innerText === '.') {
             return;
         }
-        if (input.length < 18) {
-            appendItem(number.innerText);
-        }
+        appendItem(number.innerText);
     });
 });
 
@@ -41,25 +39,33 @@ const operators = document.querySelectorAll('.operator');
 operators.forEach(operator => {
     operator.addEventListener('click', () => {
         cursor = false;
-        if (input.length < 18) {
-            appendItem(operator.innerText);
-        }
+        appendItem(operator.innerText);
     });
 });
 
 const plusMinusButton = document.getElementById('plus-minus-btn');
 plusMinusButton.addEventListener('click', () => {
-    (input[0] === '-') ? input.shift() : input.unshift('-');
+    (input[0] === '−') ? input.shift() : input.unshift('−');
     updateExpression();
 });
 
 const appendItem = (item) => {
     input.push(item);
+    input.length = input.length < 15 ? input.length : 15;
     updateExpression();
 }
 
 const updateExpression = () => {
     expression.textContent = input.join('');
+}
+
+const parseInput = () => {
+    inputCopy = [...input];
+    for (let i = 0; i < inputCopy.length; i++) {
+        inputCopy[i] = inputCopy[i].replace(/(\÷)/g, '/');
+        inputCopy[i] = inputCopy[i].replace(/(\×)/g, '*');
+        inputCopy[i] = inputCopy[i].replace(/(\−)/g, '-');
+    }
 }
 
 // Blinking cursor
