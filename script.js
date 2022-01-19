@@ -28,7 +28,11 @@ const numbers = document.querySelectorAll('.number');
 numbers.forEach(number => {
     number.addEventListener('click', () => {
         cursor = false;
-        appendItem(number.innerText);
+        if (input[input.length - 1] === '.' && number.innerText === '.') {
+            return;
+        } else {
+            appendItem(number.innerText);
+        }
     });
 });
 
