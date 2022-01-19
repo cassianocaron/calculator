@@ -1,4 +1,4 @@
-const expression = document.getElementById('expression');
+const upperDisplay = document.getElementById('expression');
 const result = document.getElementById('result');
 const allClearBtn = document.getElementById('all-clear-btn');
 const deleteBtn = document.getElementById('delete-btn');
@@ -6,8 +6,8 @@ const equalsBtn = document.getElementById('equals-btn');
 let input = [];
 let firstNumber = [];
 let currentOperator;
-let nextOperator;
 let secondNumber = [];
+let nextOperator;
 
 allClearBtn.onclick = () => {
     clearAll();
@@ -20,13 +20,15 @@ deleteBtn.onclick = () => {
 const clearAll = () => {
     expression.textContent = '';
     result.textContent = '0';
+    firstNumber.length = 0;
+    secondNumber.length = 0;
     input.length = 0;
 }
 
 const deleteItem = () => {
     cursor = false;
     input.pop();
-    updateExpression();
+    updateDisplay();
 }
 
 const numbers = document.querySelectorAll('.number');
@@ -55,23 +57,34 @@ operators.forEach(operator => {
 const plusMinusButton = document.getElementById('plus-minus-btn');
 plusMinusButton.addEventListener('click', () => {
     (input[0] === '−') ? input.shift() : input.unshift('−');
-    updateExpression();
+    updateDisplay();
 });
 
 const appendNumber = (number) => {
-    // if (firstNumber.includes('÷') || firstNumber.includes('×') || firstNumber.includes('−') || firstNumber.includes('+')) {
-    (currentOperator) ? firstNumber.push(number) : secondNumber.push(number);
-    // firstNumber.length = firstNumber.length < 15 ? firstNumber.length : 15;
+    if (currentOperator) {
+        secondNumber.push(number);
+    } else {
+        firstNumber.push(number)
+    }
+    updateDisplay();
 }
 
 const appendOperator = (operator) => {
     if (firstNumber.length != 0) {
         currentOperator = operator;
     }
+    updateDisplay();
 }
 
-const updateExpression = () => {
-    expression.textContent = input.join('');
+const updateDisplay = () => {
+    let expression = firstNumber;
+    console.log(expression);
+    if (currentOperator) {
+        expression.push(currentOperator);
+        currentOperator = nextOperator;
+    }
+    expression.concat(secondNumber)
+    upperDisplay.textContent = expression.join('');
 }
 
 const add = (a, b) => {
