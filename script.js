@@ -2,6 +2,7 @@ const expression = document.getElementById('expression');
 const result = document.getElementById('result');
 const allClearBtn = document.getElementById('all-clear-btn');
 const deleteBtn = document.getElementById('delete-btn');
+const equalsBtn = document.getElementById('equals-btn');
 let input = [];
 
 allClearBtn.onclick = () => {
@@ -95,6 +96,10 @@ const operate = (a, operator, b) => {
     } else {
         factorial(a);
     }
+}
+
+equalsBtn.onclick = () => {
+    operate(firstNumber, operator, secondNumber);
 }
 
 const parseInput = () => {
