@@ -59,6 +59,26 @@ const updateExpression = () => {
     expression.textContent = input.join('');
 }
 
+const add = (a, b) => {
+    return a + b;
+}
+
+const subtract = (a, b) => {
+    return a - b;
+}
+
+const multiply = (a, b) => {
+    return a * b;
+}
+
+const divide = (a, b) => {
+    return a / b;
+}
+
+const factorial = (n) => {
+    return (n < 2) ? 1 : n * factorial(n - 1);
+}
+
 const parseInput = () => {
     inputCopy = [...input];
     for (let i = 0; i < inputCopy.length; i++) {
