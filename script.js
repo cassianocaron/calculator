@@ -84,7 +84,7 @@ const appendNumber = (number) => {
 const appendOperator = (operator) => {
     if (expression.currentOperator != '' && expression.secondTerm != '') {
         expression.nextOperator = operator;
-    } else if (expression.firstTerm != '') {
+    } else if (expression.firstTerm != '' && expression.firstTerm[expression.firstTerm.length - 1] != '−') {
         expression.currentOperator = operator;
     }
     updateDisplay();
@@ -116,7 +116,9 @@ const factorial = (n) => {
 }
 
 const operate = (a, b) => {
-    if (expression.currentOperator === '÷') {
+    if (expression.currentOperator === '!') {
+        return factorial(a);
+    } else if (expression.currentOperator === '÷') {
        return divide(a, b);
     } else if (expression.currentOperator === '×') {
        return multiply(a, b);
@@ -125,11 +127,14 @@ const operate = (a, b) => {
     } else if (expression.currentOperator === '+') {
         return add(a, b);
     } else {
-        return factorial(a);
+        return a;
     }
 }
 
 equalsBtn.onclick = () => {
+    if (expression.firstTerm[0] === '−') {
+        expression.firstTerm = expression.firstTerm.replace('−', '-');
+    }
     let currentResult = operate(parseFloat(expression.firstTerm), parseFloat(expression.secondTerm));
     console.log(currentResult);
     if (isNaN(currentResult)) {
