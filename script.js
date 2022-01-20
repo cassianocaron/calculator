@@ -3,11 +3,13 @@ const result = document.getElementById('result');
 const allClearBtn = document.getElementById('all-clear-btn');
 const deleteBtn = document.getElementById('delete-btn');
 const equalsBtn = document.getElementById('equals-btn');
-let expression = [];
-let firstNumber = [];
-let currentOperator;
-let secondNumber = [];
-let nextOperator;
+
+let expression = {
+    firstTerm: '',
+    currentOperator: '',
+    secondTerm: '',
+    nextOperator: ''
+}
 
 allClearBtn.onclick = () => {
     clearAll();
@@ -20,9 +22,10 @@ deleteBtn.onclick = () => {
 const clearAll = () => {
     upperDisplay.textContent = '';
     result.textContent = '0';
-    firstNumber.length = 0;
-    secondNumber.length = 0;
-    expression.length = 0;
+    expression.firstTerm = '';
+    expression.currentOperator = '';
+    expression.secondTerm = '';
+    expression.nextOperator = '';
 }
 
 const deleteItem = () => {
@@ -46,45 +49,36 @@ const operators = document.querySelectorAll('.operator');
 operators.forEach(operator => {
     operator.addEventListener('click', () => {
         cursor = false;
-        if (operator.innerText === 'n!') {
-            appendOperator('!');
-        } else {
-            appendOperator(operator.innerText);
-        }
+        operator.innerText === 'n!' ? appendOperator('!') : appendOperator(operator.innerText);
     });
 });
 
-const plusMinusButton = document.getElementById('plus-minus-btn');
-plusMinusButton.addEventListener('click', () => {
-    (input[0] === '−') ? input.shift() : input.unshift('−');
-    updateDisplay();
-});
+// const plusMinusButton = document.getElementById('plus-minus-btn');
+// plusMinusButton.addEventListener('click', () => {
+//     (input[0] === '−') ? input.shift() : input.unshift('−');
+//     updateDisplay();
+// });
 
 const appendNumber = (number) => {
-    if (currentOperator) {
-        secondNumber.push(number);
+    if (expression.currentOperator === '') {
+        expression.firstTerm += number;
     } else {
-        firstNumber.push(number)
-    }
+        expression.secondTerm += number;
+    }    
     updateDisplay();
 }
 
 const appendOperator = (operator) => {
-    if (firstNumber.length != 0) {
-        currentOperator = operator;
-    }
+    if (expression.currentOperator === '') {
+        expression.currentOperator = operator;
+    } else {
+        expression.nextOperator = operator;
+    }    
     updateDisplay();
 }
 
 const updateDisplay = () => {
-    expression = firstNumber;
-    console.log(expression);
-    if (currentOperator) {
-        expression.push(currentOperator);
-        currentOperator = nextOperator;
-    }
-    expression.concat(secondNumber)
-    upperDisplay.textContent = expression.join('');
+    upperDisplay.textContent = expression.firstTerm + expression.currentOperator + expression.secondTerm + expression.nextOperator;
 }
 
 const add = (a, b) => {
@@ -107,22 +101,22 @@ const factorial = (n) => {
     return (n < 2) ? 1 : n * factorial(n - 1);
 }
 
-const operate = (a, operator, b) => {
-    if (operator === '÷') {
-        divide(a, b);
-    } else if (operator === '×') {
-        multiply(a, b);
-    } else if (operator === '−') {
-        subtract(a, b);
-    } else if (operator === '+') {
-        add(a, b);
+const operate = (a, b) => {
+    if (currentOperator === '÷') {
+       return divide(a, b);
+    } else if (currentOperator === '×') {
+       return multiply(a, b);
+    } else if (currentOperator === '−') {
+        return subtract(a, b);
+    } else if (nextOperator === '+') {
+        return add(a, b);
     } else {
-        factorial(a);
+        return factorial(a);
     }
 }
 
 equalsBtn.onclick = () => {
-    operate(firstNumber, operator, secondNumber);
+    
 }
 
 const parseInput = () => {
