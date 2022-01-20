@@ -28,6 +28,7 @@ const clearAll = () => {
     expression.currentOperator = '';
     expression.secondTerm = '';
     expression.nextOperator = '';
+    result = undefined;
 }
 
 const deleteItem = () => {
@@ -134,8 +135,13 @@ const operate = (a, b) => {
 }
 
 equalsBtn.onclick = () => {
-    result = computeExpression();
-    console.log(result);
+    if (result === undefined) {
+        result = computeExpression(expression.firstTerm, expression.secondTerm);
+        console.log(result);
+    } else {
+        expression.currentOperator = expression.nextOperator
+        result = computeExpression(result, expression.secondTerm);
+    }
     if (isNaN(result)) {
         resultDisplay.textContent = 'Syntax Error';
     } else if (result === Infinity) {
@@ -145,11 +151,11 @@ equalsBtn.onclick = () => {
     }
 }
 
-const computeExpression = () => {
-    if (expression.firstTerm[0] === '−') {
-        expression.firstTerm = expression.firstTerm.replace('−', '-');
+const computeExpression = (a, b) => {
+    if (a[0] === '−') {
+        a = a.replace('−', '-');
     }
-    return operate(parseFloat(expression.firstTerm), parseFloat(expression.secondTerm));
+    return operate(parseFloat(a), parseFloat(b));
 }
 
 // Blinking cursor
