@@ -132,6 +132,10 @@ const operate = (a, b) => {
 }
 
 equalsBtn.onclick = () => {
+    computeResult();
+}
+
+const computeResult = () => {
     if (expression.firstTerm[0] === '−') {
         expression.firstTerm = expression.firstTerm.replace('−', '-');
     }
