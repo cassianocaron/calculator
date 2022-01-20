@@ -1,5 +1,5 @@
 const upperDisplay = document.getElementById('expression');
-const result = document.getElementById('result');
+const resultDisplay = document.getElementById('result');
 const allClearBtn = document.getElementById('all-clear-btn');
 const deleteBtn = document.getElementById('delete-btn');
 const equalsBtn = document.getElementById('equals-btn');
@@ -11,6 +11,8 @@ let expression = {
     nextOperator: ''
 }
 
+let result;
+
 allClearBtn.onclick = () => {
     clearAll();
 }
@@ -21,7 +23,7 @@ deleteBtn.onclick = () => {
 
 const clearAll = () => {
     upperDisplay.textContent = '';
-    result.textContent = '0';
+    resultDisplay.textContent = '0';
     expression.firstTerm = '';
     expression.currentOperator = '';
     expression.secondTerm = '';
@@ -132,22 +134,22 @@ const operate = (a, b) => {
 }
 
 equalsBtn.onclick = () => {
-    computeResult();
+    result = computeExpression();
+    console.log(result);
+    if (isNaN(result)) {
+        resultDisplay.textContent = 'Syntax Error';
+    } else if (result === Infinity) {
+        resultDisplay.textContent = 'Math Error';
+    } else {
+        resultDisplay.textContent = result;
+    }
 }
 
-const computeResult = () => {
+const computeExpression = () => {
     if (expression.firstTerm[0] === '−') {
         expression.firstTerm = expression.firstTerm.replace('−', '-');
     }
-    let currentResult = operate(parseFloat(expression.firstTerm), parseFloat(expression.secondTerm));
-    console.log(currentResult);
-    if (isNaN(currentResult)) {
-        result.textContent = 'Syntax Error';
-    } else if (currentResult === Infinity) {
-        result.textContent = 'Math Error';
-    } else {
-        result.textContent = currentResult;
-    }
+    return operate(parseFloat(expression.firstTerm), parseFloat(expression.secondTerm));
 }
 
 // Blinking cursor
