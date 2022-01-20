@@ -130,7 +130,15 @@ const operate = (a, b) => {
 }
 
 equalsBtn.onclick = () => {
-    result.textContent = operate(parseFloat(expression.firstTerm), parseFloat(expression.secondTerm));
+    let currentResult = operate(parseFloat(expression.firstTerm), parseFloat(expression.secondTerm));
+    console.log(currentResult);
+    if (isNaN(currentResult)) {
+        result.textContent = 'Syntax Error';
+    } else if (currentResult === Infinity) {
+        result.textContent = 'Math Error';
+    } else {
+        result.textContent = currentResult;
+    }
 }
 
 // const parseInput = () => {
