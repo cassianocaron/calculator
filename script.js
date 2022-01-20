@@ -30,7 +30,15 @@ const clearAll = () => {
 
 const deleteItem = () => {
     cursor = false;
-    expression.pop();
+    if (expression.nextOperator != '') {
+        expression.nextOperator = expression.nextOperator.slice(0, -1);
+    } else if (expression.secondTerm != '') {
+        expression.secondTerm = expression.secondTerm.slice(0, -1);
+    } else if (expression.currentOperator != '') {
+        expression.currentOperator = expression.currentOperator.slice(0, -1);
+    } else {
+        expression.firstTerm = expression.firstTerm.slice(0, -1);
+    }
     updateDisplay();
 }
 
@@ -53,32 +61,33 @@ operators.forEach(operator => {
     });
 });
 
-// const plusMinusButton = document.getElementById('plus-minus-btn');
-// plusMinusButton.addEventListener('click', () => {
-//     (input[0] === '−') ? input.shift() : input.unshift('−');
-//     updateDisplay();
-// });
+const plusMinusButton = document.getElementById('plus-minus-btn');
+plusMinusButton.addEventListener('click', () => {
+    (input[0] === '−') ? input.shift() : input.unshift('−');
+    updateDisplay();
+});
 
 const appendNumber = (number) => {
     if (expression.currentOperator === '') {
         expression.firstTerm += number;
     } else {
         expression.secondTerm += number;
-    }    
+    }
     updateDisplay();
 }
 
 const appendOperator = (operator) => {
-    if (expression.currentOperator === '') {
-        expression.currentOperator = operator;
-    } else {
+    if (expression.currentOperator != '' && expression.secondTerm != '') {
         expression.nextOperator = operator;
-    }    
+    } else {
+        expression.currentOperator = operator;
+    }
     updateDisplay();
 }
 
+
 const updateDisplay = () => {
-    upperDisplay.textContent = expression.firstTerm + expression.currentOperator + expression.secondTerm + expression.nextOperator;
+    upperDisplay.textContent = Object.values(expression).join('');
 }
 
 const add = (a, b) => {
@@ -119,14 +128,14 @@ equalsBtn.onclick = () => {
     
 }
 
-const parseInput = () => {
-    inputCopy = [...input];
-    for (let i = 0; i < inputCopy.length; i++) {
-        inputCopy[i] = inputCopy[i].replace(/(\÷)/g, '/');
-        inputCopy[i] = inputCopy[i].replace(/(\×)/g, '*');
-        inputCopy[i] = inputCopy[i].replace(/(\−)/g, '-');
-    }
-}
+// const parseInput = () => {
+//     inputCopy = [...input];
+//     for (let i = 0; i < inputCopy.length; i++) {
+//         inputCopy[i] = inputCopy[i].replace(/(\÷)/g, '/');
+//         inputCopy[i] = inputCopy[i].replace(/(\×)/g, '*');
+//         inputCopy[i] = inputCopy[i].replace(/(\−)/g, '-');
+//     }
+// }
 
 // Blinking cursor
 let cursor = true;
