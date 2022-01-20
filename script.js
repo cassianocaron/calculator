@@ -141,15 +141,6 @@ equalsBtn.onclick = () => {
     }
 }
 
-// const parseInput = () => {
-//     inputCopy = [...input];
-//     for (let i = 0; i < inputCopy.length; i++) {
-//         inputCopy[i] = inputCopy[i].replace(/(\÷)/g, '/');
-//         inputCopy[i] = inputCopy[i].replace(/(\×)/g, '*');
-//         inputCopy[i] = inputCopy[i].replace(/(\−)/g, '-');
-//     }
-// }
-
 // Blinking cursor
 let cursor = true;
 let speed = 500;
