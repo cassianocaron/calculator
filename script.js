@@ -62,10 +62,15 @@ operators.forEach(operator => {
 });
 
 const plusMinusButton = document.getElementById('plus-minus-btn');
-plusMinusButton.addEventListener('click', () => {
-    (input[0] === '−') ? input.shift() : input.unshift('−');
+plusMinusButton.onclick = () => {
+    cursor = false;
+    if (expression.firstTerm[0] === '−') {
+        expression.firstTerm = expression.firstTerm.substring(1);
+    } else {
+        expression.firstTerm = '−' + expression.firstTerm;
+    }
     updateDisplay();
-});
+}
 
 const appendNumber = (number) => {
     if (expression.currentOperator === '') {
