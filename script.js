@@ -93,7 +93,9 @@ const appendNumber = (number) => {
 }
 
 const appendOperator = (operator) => {
-    currentOperator = operator;
+    if (firstTerm != '') {
+        currentOperator = operator;
+    }
 }
 
 const updateDisplay = () => {
@@ -145,7 +147,7 @@ const divide = (a, b) => {
 }
 
 const factorial = (n) => {
-    return (n < 2) ? 1 : n * factorial(n - 1);
+    return (n === 0 || n === 1) ? 1 : n * factorial(n - 1);
 }
 
 const computeExpression = (a, b) => {
