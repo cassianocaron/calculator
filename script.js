@@ -58,6 +58,8 @@ operators.forEach(operator => {
             result = computeExpression(firstTerm, secondTerm);
             firstTerm = result.toString();
             secondTerm = '';
+        } else if (firstTerm != '' && currentOperator === '!' && result != '0') {
+            firstTerm = result.toString();
         }
         operator.innerText === 'n!' ? appendOperator('!') : appendOperator(operator.innerText);
         updateDisplay();
@@ -102,12 +104,11 @@ const updateDisplay = () => {
     upperDisplay.textContent = firstTerm + currentOperator + secondTerm;
     resultDisplay.textContent = result;
 
-    if (isNaN(result)) {
+    if (isNaN(result) && result != 'Not defined') {
         toggleCursor('off');
         upperDisplay.textContent = '';
         resultDisplay.textContent = 'Syntax Error';
-    }
-    if (result === Infinity) {
+    } else if (result === Infinity || result === 'Not defined') {
         toggleCursor('off');
         upperDisplay.textContent = '';
         resultDisplay.textContent = 'Math Error';
@@ -125,8 +126,6 @@ const operate = (a, b) => {
         return subtract(a, b);
     } else if (currentOperator === '+') {
         return add(a, b);
-    } else {
-        return a;
     }
 }
 
@@ -147,7 +146,11 @@ const divide = (a, b) => {
 }
 
 const factorial = (n) => {
-    return (n === 0 || n === 1) ? 1 : n * factorial(n - 1);
+    if (n < 0) {
+        return 'Not defined';
+    } else {
+        return (n === 0 || n === 1) ? 1 : n * factorial(n - 1);
+    }
 }
 
 const computeExpression = (a, b) => {
