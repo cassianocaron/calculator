@@ -10,7 +10,6 @@ const equalsBtn = document.getElementById('equals-btn');
 let firstTerm = '';
 let currentOperator = '';
 let secondTerm = '';
-let nextOperator = '';
 let nextTerm = '';
 let result = '';
 
@@ -46,16 +45,7 @@ const deleteItem = () => {
 numbers.forEach(number => {
     number.addEventListener('click', () => {
         cursorStatus = false;
-        if (number.innerText === '.') {
-            if (firstTerm.includes('.') === false) {
-                appendNumber('.');
-            }
-            if (firstTerm != '' && currentOperator != '' && secondTerm.includes('.') === false) {
-                appendNumber('.');
-            }
-        } else {
-            appendNumber(number.innerText);
-        }
+        appendNumber(number.innerText);
         updateDisplay();
     });
 });
@@ -65,7 +55,7 @@ operators.forEach(operator => {
         cursorStatus = false;
         if (firstTerm != '' && currentOperator != '' && secondTerm != '') {
             result = computeExpression(firstTerm, secondTerm);
-            nextTerm = '';
+            secondTerm = '';
         }
         operator.innerText === 'n!' ? appendOperator('!') : appendOperator(operator.innerText);
         updateDisplay();
@@ -75,8 +65,6 @@ operators.forEach(operator => {
 const appendNumber = (number) => {
     if (currentOperator === '') {
         firstTerm += number;
-    } else if (result != '') {
-        nextTerm += number;
     } else {
         secondTerm += number;
     }
@@ -89,7 +77,6 @@ const appendOperator = (operator) => {
 const updateDisplay = () => {
     if (result != '' && typeof(result) === 'number' && result != Infinity && isNaN(result) === false) {           
         firstTerm = result.toString();
-        secondTerm = nextTerm;
         upperDisplay.textContent = firstTerm + currentOperator + secondTerm;
         resultDisplay.textContent = result;
     }
@@ -165,31 +152,21 @@ const computeExpression = (a, b) => {
 //     updateDisplay();
 // }
 
-// equalsBtn.onclick = () => {
-//     if (result === undefined) {
-//         result = computeExpression(expression.firstTerm, expression.secondTerm);
-//         console.log(result);
-//     } else {        
-//         result = computeExpression(expression.firstTerm, expression.secondTerm);
-//     }
-//     if (isNaN(result)) {
-//         resultDisplay.textContent = 'Syntax Error';
-//     } else if (result === Infinity) {
-//         resultDisplay.textContent = 'Math Error';
-//     } else {
-//         resultDisplay.textContent = result;
-//     }
-// }
-
-const toggleCursor = (value) => {
-    if (value === 'on') {
-        cursor.classList.remove('off');
-    } else {
-        cursor.classList.add('off');
+equalsBtn.onclick = () => {
+    if (firstTerm != '' && currentOperator != '' && secondTerm != '') {
+        result = computeExpression(firstTerm, secondTerm);
+        secondTerm = '';
+        updateDisplay();
     }
 }
 
-
+const toggleCursor = (value) => {
+    if (value === 'off') {
+        cursor.classList.add('off');
+    } else {
+        cursor.classList.remove('off');
+    }
+}
 
 // Blinking cursor
 let cursorStatus = true;
