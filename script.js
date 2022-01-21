@@ -5,13 +5,13 @@ const allClearBtn = document.getElementById('all-clear-btn');
 const deleteBtn = document.getElementById('delete-btn');
 const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
-const plusMinusButton = document.getElementById('plus-minus-btn');
+const plusMinusBtn = document.getElementById('plus-minus-btn');
 const equalsBtn = document.getElementById('equals-btn');
 
 let firstTerm = '';
 let currentOperator = '';
 let secondTerm = '';
-let result = '';
+let result = '0';
 
 allClearBtn.onclick = () => {
     clearAll();
@@ -25,7 +25,7 @@ const clearAll = () => {
     firstTerm = '';
     currentOperator = '';
     secondTerm = '';
-    result = '';
+    result = '0';
     toggleCursor('on');
     updateDisplay();
 }
@@ -44,7 +44,9 @@ const deleteItem = () => {
 numbers.forEach(number => {
     number.addEventListener('click', () => {
         cursorStatus = false;
-        appendNumber(number.innerText);
+        if (currentOperator != '!') {
+            appendNumber(number.innerText);
+        }
         updateDisplay();
     });
 });
@@ -54,12 +56,33 @@ operators.forEach(operator => {
         cursorStatus = false;
         if (firstTerm != '' && currentOperator != '' && secondTerm != '') {
             result = computeExpression(firstTerm, secondTerm);
+            firstTerm = result.toString();
             secondTerm = '';
         }
         operator.innerText === 'n!' ? appendOperator('!') : appendOperator(operator.innerText);
         updateDisplay();
     });
 });
+
+plusMinusBtn.onclick = () => {
+    cursorStatus = false;
+    if (firstTerm[0] === '−') {
+        firstTerm = firstTerm.substring(1);
+    } else {
+        firstTerm = '−' + firstTerm;
+    }
+    updateDisplay();
+}
+
+equalsBtn.onclick = () => {
+    if (firstTerm != '' && currentOperator === '!') {
+        result = computeExpression(firstTerm);
+        updateDisplay();
+    } else if (firstTerm != '' && currentOperator != '' && secondTerm != '') {
+        result = computeExpression(firstTerm, secondTerm);
+        updateDisplay();
+    }
+}
 
 const appendNumber = (number) => {
     if (currentOperator === '') {
@@ -74,11 +97,9 @@ const appendOperator = (operator) => {
 }
 
 const updateDisplay = () => {
-    if (result != '' && typeof(result) === 'number' && result != Infinity && isNaN(result) === false) {           
-        firstTerm = result.toString();
-        upperDisplay.textContent = firstTerm + currentOperator + secondTerm;
-        resultDisplay.textContent = result;
-    }
+    upperDisplay.textContent = firstTerm + currentOperator + secondTerm;
+    resultDisplay.textContent = result;
+
     if (isNaN(result)) {
         toggleCursor('off');
         upperDisplay.textContent = '';
@@ -88,10 +109,6 @@ const updateDisplay = () => {
         toggleCursor('off');
         upperDisplay.textContent = '';
         resultDisplay.textContent = 'Math Error';
-    } 
-    if (result === '') {
-        upperDisplay.textContent = firstTerm + currentOperator + secondTerm;
-        resultDisplay.textContent = 0
     }
 }
 
@@ -131,31 +148,11 @@ const factorial = (n) => {
     return (n < 2) ? 1 : n * factorial(n - 1);
 }
 
-
-
 const computeExpression = (a, b) => {
     if (a[0] === '−') {
         a = a.replace('−', '-');
     }
     return operate(parseFloat(a), parseFloat(b));
-}
-
-plusMinusButton.onclick = () => {
-    cursorStatus = false;
-    if (firstTerm[0] === '−') {
-        firstTerm = firstTerm.substring(1);
-    } else {
-        firstTerm = '−' + firstTerm;
-    }
-    updateDisplay();
-}
-
-equalsBtn.onclick = () => {
-    if (firstTerm != '' && currentOperator != '' && secondTerm != '') {
-        result = computeExpression(firstTerm, secondTerm);
-        secondTerm = '';
-        updateDisplay();
-    }
 }
 
 const toggleCursor = (value) => {
