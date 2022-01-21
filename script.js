@@ -2,16 +2,15 @@ const upperDisplay = document.getElementById('expression');
 const resultDisplay = document.getElementById('result');
 const allClearBtn = document.getElementById('all-clear-btn');
 const deleteBtn = document.getElementById('delete-btn');
+const numbers = document.querySelectorAll('.number');
+const operators = document.querySelectorAll('.operator');
 const equalsBtn = document.getElementById('equals-btn');
 
-let expression = {
-    firstTerm: '',
-    currentOperator: '',
-    secondTerm: '',
-    nextOperator: ''
-}
-
-let result;
+let firstTerm = '';
+let currentOperator = '';
+let secondTerm = '';
+let expression = [];
+let result = '';
 
 allClearBtn.onclick = () => {
     clearAll();
@@ -22,47 +21,53 @@ deleteBtn.onclick = () => {
 }
 
 const clearAll = () => {
-    upperDisplay.textContent = '';
-    resultDisplay.textContent = '0';
-    expression.firstTerm = '';
-    expression.currentOperator = '';
-    expression.secondTerm = '';
-    expression.nextOperator = '';
-    result = undefined;
+    firstTerm = '';
+    currentOperator = '';
+    secondTerm = '';
+    result = '';
+    expression.length = 0;
 }
 
 const deleteItem = () => {
-    cursor = false;
-    if (expression.nextOperator != '') {
-        expression.nextOperator = expression.nextOperator.slice(0, -1);
-    } else if (expression.secondTerm != '') {
-        expression.secondTerm = expression.secondTerm.slice(0, -1);
-    } else if (expression.currentOperator != '') {
-        expression.currentOperator = expression.currentOperator.slice(0, -1);
-    } else {
-        expression.firstTerm = expression.firstTerm.slice(0, -1);
-    }
-    updateDisplay();
+    
 }
 
-const numbers = document.querySelectorAll('.number');
 numbers.forEach(number => {
     number.addEventListener('click', () => {
         cursor = false;
-        if (input[input.length - 1] === '.' && number.innerText === '.') {
-            return;
-        }
         appendNumber(number.innerText);
+        updateDisplay();
     });
 });
 
-const operators = document.querySelectorAll('.operator');
 operators.forEach(operator => {
     operator.addEventListener('click', () => {
         cursor = false;
-        operator.innerText === 'n!' ? appendOperator('!') : appendOperator(operator.innerText);
+        operator.innerText === 'n!' ? appendOperator('!') : appendOperator(operator.innerText);        
+        updateDisplay();
     });
 });
+
+const appendNumber = (number) => {
+    if (currentOperator === '') {
+        firstTerm += number;
+    } else {
+        secondTerm += number;
+    }
+}
+
+const appendOperator = (operator) => {
+    if (expression.currentOperator != '' && expression.secondTerm != '') {
+        expression.nextOperator = operator;
+    } else if (expression.firstTerm != '' && expression.firstTerm[expression.firstTerm.length - 1] != '−') {
+        expression.currentOperator = operator;
+    }
+}
+
+
+const updateDisplay = (result) => {
+    
+}
 
 const plusMinusButton = document.getElementById('plus-minus-btn');
 plusMinusButton.onclick = () => {
@@ -73,29 +78,6 @@ plusMinusButton.onclick = () => {
         expression.firstTerm = '−' + expression.firstTerm;
     }
     updateDisplay();
-}
-
-const appendNumber = (number) => {
-    if (expression.currentOperator === '') {
-        expression.firstTerm += number;
-    } else {
-        expression.secondTerm += number;
-    }
-    updateDisplay();
-}
-
-const appendOperator = (operator) => {
-    if (expression.currentOperator != '' && expression.secondTerm != '') {
-        expression.nextOperator = operator;
-    } else if (expression.firstTerm != '' && expression.firstTerm[expression.firstTerm.length - 1] != '−') {
-        expression.currentOperator = operator;
-    }
-    updateDisplay();
-}
-
-
-const updateDisplay = () => {
-    upperDisplay.textContent = Object.values(expression).join('');
 }
 
 const add = (a, b) => {
@@ -138,9 +120,8 @@ equalsBtn.onclick = () => {
     if (result === undefined) {
         result = computeExpression(expression.firstTerm, expression.secondTerm);
         console.log(result);
-    } else {
-        expression.currentOperator = expression.nextOperator
-        result = computeExpression(result, expression.secondTerm);
+    } else {        
+        result = computeExpression(expression.firstTerm, expression.secondTerm);
     }
     if (isNaN(result)) {
         resultDisplay.textContent = 'Syntax Error';
