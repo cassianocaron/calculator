@@ -11,7 +11,7 @@ const equalsBtn = document.getElementById('equals-btn');
 let firstTerm = '';
 let currentOperator = '';
 let secondTerm = '';
-let result = '0';
+let result = 0;
 
 allClearBtn.onclick = () => {
     clearAll();
@@ -25,7 +25,7 @@ const clearAll = () => {
     firstTerm = '';
     currentOperator = '';
     secondTerm = '';
-    result = '0';
+    result = 0;
     toggleCursor('on');
     updateDisplay();
 }
@@ -100,7 +100,12 @@ const appendOperator = (operator) => {
     }
 }
 
+const len = Math.ceil(Math.log10(result + 1));
 const updateDisplay = () => {
+    
+    if (len > 10) {
+        result = +result.toFixed(2);
+    }
     upperDisplay.textContent = firstTerm + currentOperator + secondTerm;
     resultDisplay.textContent = result;
 
@@ -146,7 +151,7 @@ const divide = (a, b) => {
 }
 
 const factorial = (n) => {
-    if (n < 0) {
+    if (n < 0 || !(Number.isInteger(n))) {
         return 'Not defined';
     } else {
         return (n === 0 || n === 1) ? 1 : n * factorial(n - 1);
