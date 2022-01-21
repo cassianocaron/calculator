@@ -1,16 +1,16 @@
-const cursor = document.getElementById('cursor');
 const upperDisplay = document.getElementById('expression');
+const cursor = document.getElementById('cursor');
 const resultDisplay = document.getElementById('result');
 const allClearBtn = document.getElementById('all-clear-btn');
 const deleteBtn = document.getElementById('delete-btn');
 const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
+const plusMinusButton = document.getElementById('plus-minus-btn');
 const equalsBtn = document.getElementById('equals-btn');
 
 let firstTerm = '';
 let currentOperator = '';
 let secondTerm = '';
-let nextTerm = '';
 let result = '';
 
 allClearBtn.onclick = () => {
@@ -25,7 +25,6 @@ const clearAll = () => {
     firstTerm = '';
     currentOperator = '';
     secondTerm = '';
-    nextTerm = '';
     result = '';
     toggleCursor('on');
     updateDisplay();
@@ -141,16 +140,15 @@ const computeExpression = (a, b) => {
     return operate(parseFloat(a), parseFloat(b));
 }
 
-// const plusMinusButton = document.getElementById('plus-minus-btn');
-// plusMinusButton.onclick = () => {
-//     cursor = false;
-//     if (expression.firstTerm[0] === '−') {
-//         expression.firstTerm = expression.firstTerm.substring(1);
-//     } else {
-//         expression.firstTerm = '−' + expression.firstTerm;
-//     }
-//     updateDisplay();
-// }
+plusMinusButton.onclick = () => {
+    cursorStatus = false;
+    if (firstTerm[0] === '−') {
+        firstTerm = firstTerm.substring(1);
+    } else {
+        firstTerm = '−' + firstTerm;
+    }
+    updateDisplay();
+}
 
 equalsBtn.onclick = () => {
     if (firstTerm != '' && currentOperator != '' && secondTerm != '') {
