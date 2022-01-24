@@ -100,11 +100,9 @@ const appendOperator = (operator) => {
     }
 }
 
-const len = Math.ceil(Math.log10(result + 1));
 const updateDisplay = () => {
-    
-    if (len > 10) {
-        result = +result.toFixed(2);
+    if (result > 0) {
+        result = +result.toExponential(9);
     }
     upperDisplay.textContent = firstTerm + currentOperator + secondTerm;
     resultDisplay.textContent = result;
@@ -147,15 +145,17 @@ const multiply = (a, b) => {
 }
 
 const divide = (a, b) => {
+    if (firstTerm === '0' && currentOperator === '÷' && secondTerm === '0') {
+        return 'Not defined';
+    }
     return a / b;
 }
 
 const factorial = (n) => {
     if (n < 0 || !(Number.isInteger(n))) {
         return 'Not defined';
-    } else {
-        return (n === 0 || n === 1) ? 1 : n * factorial(n - 1);
     }
+    return (n === 0 || n === 1) ? 1 : n * factorial(n - 1);
 }
 
 const computeExpression = (a, b) => {
