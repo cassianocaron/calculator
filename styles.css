@@ -1,9 +1,9 @@
 html, body {
-    font-family: 'JetBrains Mono', Verdana, sans-serif;
+    font-family: 'Input Mono', 'monospace', Verdana, sans-serif;
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #818181;
+    background-color: #151515;
     box-sizing: border-box;
 }
 
@@ -19,6 +19,7 @@ html, body {
 }
 
 .wrapper {
+    max-width: 360px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,9 +38,9 @@ html, body {
     justify-content: center;
     border: 2px solid black;
     border-radius: 6px;
-    height: 100px;
-    width: 100%;    
-    padding: 10px;
+    height: 100%;
+    width: 100%;
+    padding: 8px;
     background-color: rgba(85, 255, 102, 0.08);
 }
 
@@ -48,15 +49,22 @@ html, body {
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 #cursor {
-    font-size: 25px;
+    font-size: 20px;
+    margin-bottom: 4px;
+    margin-left: -4px;
+    overflow: hidden;
+}
+
+#cursor.off {
+    visibility: hidden;
 }
 
 #result {
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .row {
@@ -68,7 +76,7 @@ html, body {
     width: 70px;
     height: 50px;
     border-radius: 6px;
-    background-color: #353535;
+    background-color: #303030;
     color: white;
     border: 2px solid black;
     font-size: 25px;
@@ -103,16 +111,16 @@ html, body {
 #subtract-btn,
 #addition-btn,
 #equal-btn {
-    font-size: 32px;
+    font-size: 30px;
     color: rgb(40, 255, 120);
 }
 
-#percentage-btn {
-    font-size: 23px;
+#factorial-btn {
+    font-size: 25px;
     color: rgb(40, 255, 120);
 }
 
-#equal-btn {
+#equals-btn {
     background-color: rgba(40, 255, 120, 0.8);
     color: black;
 }
