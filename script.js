@@ -45,7 +45,7 @@ const deleteItem = () => {
 numbers.forEach(number => {
     number.addEventListener('click', () => {
         cursorStatus = false;
-        if (isNaN(result) || result === Infinity || result === 'Not defined' || expression.length >= 22) {
+        if (resultDisplay.textContent === 'Math Error' || resultDisplay.textContent === 'Syntax Error' || expression.length >= 22) {
             return;
         }
         if (currentOperator != '!') {
@@ -58,7 +58,7 @@ numbers.forEach(number => {
 operators.forEach(operator => {
     operator.addEventListener('click', () => {
         cursorStatus = false;
-        if (isNaN(result) || result === Infinity || result === 'Not defined'|| expression.length >= 24) {
+        if (resultDisplay.textContent === 'Math Error' || resultDisplay.textContent === 'Syntax Error' || expression.length >= 24) {
             return;
         }
         if (firstTerm != '' && currentOperator != '' && secondTerm != '') {
@@ -111,9 +111,8 @@ const appendOperator = (operator) => {
 }
 
 const updateResult = () => {
-    result = parseFloat(result);
-    if (result > 0) {
-        if ((result.toString()).length >= 15 && result > 1000000000) {
+    if (typeof result === 'number' && result != 0) {
+        if ((result.toString()).length >= 15 && (result > 100000000 || result < -100000000)) {
             result = (result.toExponential(9)).replace(/(\.[0-9]*[1-9])0*|(\.0*)/, "$1");
         } else {
             result = +result.toFixed(6);
@@ -130,7 +129,7 @@ const updateDisplay = () => {
         toggleCursor('off');
         upperDisplay.textContent = '';
         resultDisplay.textContent = 'Syntax Error';
-    } else if (result === Infinity || result === 'Not defined') {
+    } else if (result === Infinity || result === -Infinity || result === 'Not defined') {
         toggleCursor('off');
         upperDisplay.textContent = '';
         resultDisplay.textContent = 'Math Error';
@@ -172,7 +171,7 @@ const divide = (a, b) => {
 
 const factorial = (n) => {
     // Factorial is defined for any non-negative integer,
-    // but I'm limiting it to 150 to avoid too many function calls
+    // but limiting it to a number avoids too many function calls
     if (n < 0 || !(Number.isInteger(n)) || n > 150) {
         return 'Not defined';
     }
