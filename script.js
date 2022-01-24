@@ -44,6 +44,9 @@ const deleteItem = () => {
 numbers.forEach(number => {
     number.addEventListener('click', () => {
         cursorStatus = false;
+        if (isNaN(result) || result === Infinity || result === 'Not defined') {
+            return;
+        }
         if (currentOperator != '!') {
             appendNumber(number.innerText);
         }
@@ -54,6 +57,9 @@ numbers.forEach(number => {
 operators.forEach(operator => {
     operator.addEventListener('click', () => {
         cursorStatus = false;
+        if (isNaN(result) || result === Infinity || result === 'Not defined') {
+            return;
+        }
         if (firstTerm != '' && currentOperator != '' && secondTerm != '') {
             result = computeExpression(firstTerm, secondTerm);
             firstTerm = result.toString();
@@ -152,7 +158,9 @@ const divide = (a, b) => {
 }
 
 const factorial = (n) => {
-    if (n < 0 || !(Number.isInteger(n))) {
+    // Factorial is defined for any non-negative integer,
+    // but I'm limiting it to 150 to avoid too many function calls
+    if (n < 0 || !(Number.isInteger(n)) || firstTerm > '150') {
         return 'Not defined';
     }
     return (n === 0 || n === 1) ? 1 : n * factorial(n - 1);
@@ -174,15 +182,15 @@ const toggleCursor = (value) => {
 }
 
 // Blinking cursor
-let cursorStatus = true;
-let speed = 500;
+// let cursorStatus = true;
+// let speed = 500;
 
-setInterval(() => {
-    if (cursorStatus) {
-        cursor.style.opacity = 0;
-        cursorStatus = false;
-    } else {
-        cursor.style.opacity = 1;
-        cursorStatus = true;
-    }
-}, speed);
+// setInterval(() => {
+//     if (cursorStatus) {
+//         cursor.style.opacity = 0;
+//         cursorStatus = false;
+//     } else {
+//         cursor.style.opacity = 1;
+//         cursorStatus = true;
+//     }
+// }, speed);
