@@ -13,7 +13,6 @@ let currentOperator = '';
 let secondTerm = '';
 let expression = '';
 let result = 0;
-let resultCounter = 0;
 
 allClearBtn.onclick = () => {
     clearAll();
@@ -28,7 +27,6 @@ const clearAll = () => {
     currentOperator = '';
     secondTerm = '';
     result = 0;
-    resultCounter = 0;
     toggleCursor('on');
     updateDisplay();
 }
@@ -47,11 +45,8 @@ const deleteItem = () => {
 numbers.forEach(number => {
     number.addEventListener('click', () => {
         cursorStatus = false;
-        if (isNaN(result) || result === Infinity || result === 'Not defined' || expression.length > 22) {
+        if (isNaN(result) || result === Infinity || result === 'Not defined' || expression.length >= 22) {
             return;
-        }
-        if (firstTerm != '' && currentOperator != '' && secondTerm != '' && resultCounter === 1) {
-                clearAll();
         }
         if (currentOperator != '!') {
             appendNumber(number.innerText);
@@ -63,11 +58,12 @@ numbers.forEach(number => {
 operators.forEach(operator => {
     operator.addEventListener('click', () => {
         cursorStatus = false;
-        if (isNaN(result) || result === Infinity || result === 'Not defined'|| expression.length > 22) {
+        if (isNaN(result) || result === Infinity || result === 'Not defined'|| expression.length >= 24) {
             return;
         }
         if (firstTerm != '' && currentOperator != '' && secondTerm != '') {
             result = computeExpression(firstTerm, secondTerm);
+            updateResult();
             firstTerm = result.toString();
             secondTerm = '';
         } else if (firstTerm != '' && currentOperator === '!' && result != '0') {
@@ -91,9 +87,11 @@ plusMinusBtn.onclick = () => {
 equalsBtn.onclick = () => {
     if (firstTerm != '' && currentOperator === '!') {
         result = computeExpression(firstTerm);
+        updateResult();
         updateDisplay();
     } else if (firstTerm != '' && currentOperator != '' && secondTerm != '') {
         result = computeExpression(firstTerm, secondTerm);
+        updateResult();
         updateDisplay();
     }
 }
@@ -112,15 +110,18 @@ const appendOperator = (operator) => {
     }
 }
 
-const updateDisplay = () => {
+const updateResult = () => {
+    result = parseFloat(result);
     if (result > 0) {
-        resultCounter++;
         if ((result.toString()).length >= 15 && result > 1000000000) {
             result = (result.toExponential(9)).replace(/(\.[0-9]*[1-9])0*|(\.0*)/, "$1");
         } else {
             result = +result.toFixed(6);
         }
     }
+}
+
+const updateDisplay = () => {
     expression = firstTerm + currentOperator + secondTerm;
     upperDisplay.textContent = expression;
     resultDisplay.textContent = result;
