@@ -22,26 +22,6 @@ deleteBtn.onclick = () => {
     deleteItem();
 }
 
-const clearAll = () => {
-    firstTerm = '';
-    currentOperator = '';
-    secondTerm = '';
-    result = 0;
-    toggleCursor('on');
-    updateDisplay();
-}
-
-const deleteItem = () => {
-    if (secondTerm != '') {
-        secondTerm = secondTerm.slice(0, -1);
-    } else if (currentOperator != '') {
-        currentOperator = currentOperator.slice(0, -1);
-    } else if (firstTerm != '') {
-        firstTerm = firstTerm.slice(0, -1);
-    }
-    updateDisplay();
-}
-
 numbers.forEach(number => {
     number.addEventListener('click', () => {
         cursorStatus = false;
@@ -94,6 +74,26 @@ equalsBtn.onclick = () => {
         updateResult();
         updateDisplay();
     }
+}
+
+const clearAll = () => {
+    firstTerm = '';
+    currentOperator = '';
+    secondTerm = '';
+    result = 0;
+    toggleCursor('on');
+    updateDisplay();
+}
+
+const deleteItem = () => {
+    if (secondTerm != '') {
+        secondTerm = secondTerm.slice(0, -1);
+    } else if (currentOperator != '') {
+        currentOperator = currentOperator.slice(0, -1);
+    } else if (firstTerm != '') {
+        firstTerm = firstTerm.slice(0, -1);
+    }
+    updateDisplay();
 }
 
 const appendNumber = (number) => {
@@ -170,7 +170,7 @@ const divide = (a, b) => {
 }
 
 const factorial = (n) => {
-    // Factorial is defined for any non-negative integer,
+    // Factorial IS defined for any non-negative integer,
     // but limiting it to a number avoids too many function calls
     if (n < 0 || !(Number.isInteger(n)) || n > 150) {
         return 'Not defined';
