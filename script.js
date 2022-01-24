@@ -11,6 +11,7 @@ const equalsBtn = document.getElementById('equals-btn');
 let firstTerm = '';
 let currentOperator = '';
 let secondTerm = '';
+let expression = '';
 let result = 0;
 
 allClearBtn.onclick = () => {
@@ -44,7 +45,7 @@ const deleteItem = () => {
 numbers.forEach(number => {
     number.addEventListener('click', () => {
         cursorStatus = false;
-        if (isNaN(result) || result === Infinity || result === 'Not defined') {
+        if (isNaN(result) || result === Infinity || result === 'Not defined' || expression.length > 22) {
             return;
         }
         if (currentOperator != '!') {
@@ -57,7 +58,7 @@ numbers.forEach(number => {
 operators.forEach(operator => {
     operator.addEventListener('click', () => {
         cursorStatus = false;
-        if (isNaN(result) || result === Infinity || result === 'Not defined') {
+        if (isNaN(result) || result === Infinity || result === 'Not defined'|| expression.length > 22) {
             return;
         }
         if (firstTerm != '' && currentOperator != '' && secondTerm != '') {
@@ -108,9 +109,12 @@ const appendOperator = (operator) => {
 
 const updateDisplay = () => {
     if (result > 0) {
-        result = +result.toExponential(9);
+        if ((result.toString()).length > 15) {
+            result = result.toExponential(9);
+        }
     }
-    upperDisplay.textContent = firstTerm + currentOperator + secondTerm;
+    expression = firstTerm + currentOperator + secondTerm;
+    upperDisplay.textContent = expression;
     resultDisplay.textContent = result;
 
     if (isNaN(result) && result != 'Not defined') {
@@ -160,7 +164,7 @@ const divide = (a, b) => {
 const factorial = (n) => {
     // Factorial is defined for any non-negative integer,
     // but I'm limiting it to 150 to avoid too many function calls
-    if (n < 0 || !(Number.isInteger(n)) || firstTerm > '150') {
+    if (n < 0 || !(Number.isInteger(n)) || n > 150) {
         return 'Not defined';
     }
     return (n === 0 || n === 1) ? 1 : n * factorial(n - 1);
