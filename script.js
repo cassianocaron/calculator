@@ -13,6 +13,7 @@ let currentOperator = '';
 let secondTerm = '';
 let expression = '';
 let result = 0;
+let resultCounter = 0;
 
 allClearBtn.onclick = () => {
     clearAll();
@@ -27,6 +28,7 @@ const clearAll = () => {
     currentOperator = '';
     secondTerm = '';
     result = 0;
+    resultCounter = 0;
     toggleCursor('on');
     updateDisplay();
 }
@@ -47,6 +49,9 @@ numbers.forEach(number => {
         cursorStatus = false;
         if (isNaN(result) || result === Infinity || result === 'Not defined' || expression.length > 22) {
             return;
+        }
+        if (firstTerm != '' && currentOperator != '' && secondTerm != '' && resultCounter === 1) {
+                clearAll();
         }
         if (currentOperator != '!') {
             appendNumber(number.innerText);
@@ -109,8 +114,11 @@ const appendOperator = (operator) => {
 
 const updateDisplay = () => {
     if (result > 0) {
-        if ((result.toString()).length > 15) {
-            result = result.toExponential(9);
+        resultCounter++;
+        if ((result.toString()).length >= 15 && result > 1000000000) {
+            result = (result.toExponential(9)).replace(/(\.[0-9]*[1-9])0*|(\.0*)/, "$1");
+        } else {
+            result = +result.toFixed(6);
         }
     }
     expression = firstTerm + currentOperator + secondTerm;
@@ -186,15 +194,15 @@ const toggleCursor = (value) => {
 }
 
 // Blinking cursor
-// let cursorStatus = true;
-// let speed = 500;
+let cursorStatus = true;
+let speed = 500;
 
-// setInterval(() => {
-//     if (cursorStatus) {
-//         cursor.style.opacity = 0;
-//         cursorStatus = false;
-//     } else {
-//         cursor.style.opacity = 1;
-//         cursorStatus = true;
-//     }
-// }, speed);
+setInterval(() => {
+    if (cursorStatus) {
+        cursor.style.opacity = 0;
+        cursorStatus = false;
+    } else {
+        cursor.style.opacity = 1;
+        cursorStatus = true;
+    }
+}, speed);
