@@ -116,11 +116,7 @@ const appendNumber = (number) => {
             secondTerm += number;
         }
     } else {
-        if (currentOperator === '') {
-            firstTerm += number;
-        } else {
-            secondTerm += number;
-        }
+        currentOperator === '' ? firstTerm += number : secondTerm += number;
     }
 }
 
