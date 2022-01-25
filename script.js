@@ -189,7 +189,7 @@ const multiply = (a, b) => {
 }
 
 const divide = (a, b) => {
-    if (firstTerm === '0' && currentOperator === '÷' && secondTerm === '0') {
+    if ((firstTerm === '0' || firstTerm === '−0') && currentOperator === '÷' && (secondTerm === '0' || secondTerm === '−0')) {
         return 'Not defined';
     }
     return a / b;
