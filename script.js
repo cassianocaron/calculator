@@ -63,7 +63,7 @@ operators.forEach(operator => {
 
 plusMinusBtn.onclick = () => {
     cursorStatus = false;
-    if (firstTerm[0] === '−') {
+    if (firstTerm[0] === '−' || firstTerm[0] === '-') {
         firstTerm = firstTerm.substring(1);
     } else {
         firstTerm = '−' + firstTerm;
@@ -72,12 +72,13 @@ plusMinusBtn.onclick = () => {
 }
 
 equalsBtn.onclick = () => {
-    lastButtonPressed = 'equals';
     if (firstTerm != '' && currentOperator === '!') {
+        lastButtonPressed = 'equals';
         result = computeExpression(firstTerm);
         updateResult();
         updateDisplay();
     } else if (firstTerm != '' && currentOperator != '' && secondTerm != '') {
+        lastButtonPressed = 'equals';
         result = computeExpression(firstTerm, secondTerm);
         updateResult();
         updateDisplay();
