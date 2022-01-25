@@ -20,6 +20,7 @@ allClearBtn.onclick = () => {
 }
 
 deleteBtn.onclick = () => {
+    lastButtonPressed = 'delete';
     deleteItem();
 }
 
