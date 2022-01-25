@@ -90,9 +90,7 @@ const clearUpperDisplay = () => {
 }
 
 const clearAll = () => {
-    firstTerm = '';
-    currentOperator = '';
-    secondTerm = '';
+    clearUpperDisplay();
     result = 0;
     lastButtonPressed = '';
     toggleCursor('on');
