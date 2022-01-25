@@ -43,6 +43,7 @@ numbers.forEach(number => {
 operators.forEach(operator => {
     operator.addEventListener('click', () => {
         cursorStatus = false;
+        lastButtonPressed = 'operator';
         if (resultDisplay.textContent === 'Math Error' || resultDisplay.textContent === 'Syntax Error' || expression.length >= 24) {
             return;
         }
@@ -51,7 +52,7 @@ operators.forEach(operator => {
             updateResult();
             firstTerm = result.toString();
             secondTerm = '';
-        } else if (firstTerm != '' && currentOperator === '!' && result != '0') {
+        } else if (firstTerm != '' && currentOperator === '!' && result != 0) {
             firstTerm = result.toString();
         }
         operator.innerText === 'n!' ? appendOperator('!') : appendOperator(operator.innerText);
@@ -93,6 +94,7 @@ const clearAll = () => {
     currentOperator = '';
     secondTerm = '';
     result = 0;
+    lastButtonPressed = '';
     toggleCursor('on');
     updateDisplay();
 }
@@ -110,7 +112,7 @@ const deleteItem = () => {
 
 const appendNumber = (number) => {
     if (number === '.') {
-        if (!firstTerm.includes('.')) {
+        if (!firstTerm.includes('.') && currentOperator === '') {
             firstTerm += number;
         } else if (currentOperator != '' && !secondTerm.includes('.')) {
             secondTerm += number;
