@@ -13,6 +13,7 @@ let currentOperator = '';
 let secondTerm = '';
 let expression = '';
 let result = 0;
+let lastButtonPressed = '';
 
 allClearBtn.onclick = () => {
     clearAll();
@@ -27,6 +28,10 @@ numbers.forEach(number => {
         cursorStatus = false;
         if (resultDisplay.textContent === 'Math Error' || resultDisplay.textContent === 'Syntax Error' || expression.length >= 22) {
             return;
+        }
+        if (lastButtonPressed === 'equals') {
+            clearUpperDisplay();
+            lastButtonPressed = 'number';
         }
         if (currentOperator != '!') {
             appendNumber(number.innerText);
@@ -65,6 +70,7 @@ plusMinusBtn.onclick = () => {
 }
 
 equalsBtn.onclick = () => {
+    lastButtonPressed = 'equals';
     if (firstTerm != '' && currentOperator === '!') {
         result = computeExpression(firstTerm);
         updateResult();
@@ -74,6 +80,12 @@ equalsBtn.onclick = () => {
         updateResult();
         updateDisplay();
     }
+}
+
+const clearUpperDisplay = () => {
+    firstTerm = '';
+    currentOperator = ''
+    secondTerm = '';
 }
 
 const clearAll = () => {
@@ -97,10 +109,18 @@ const deleteItem = () => {
 }
 
 const appendNumber = (number) => {
-    if (currentOperator === '') {
-        firstTerm += number;
+    if (number === '.') {
+        if (!firstTerm.includes('.')) {
+            firstTerm += number;
+        } else if (currentOperator != '' && !secondTerm.includes('.')) {
+            secondTerm += number;
+        }
     } else {
-        secondTerm += number;
+        if (currentOperator === '') {
+            firstTerm += number;
+        } else {
+            secondTerm += number;
+        }
     }
 }
 
