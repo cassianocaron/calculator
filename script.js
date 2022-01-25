@@ -63,10 +63,18 @@ operators.forEach(operator => {
 
 plusMinusBtn.onclick = () => {
     cursorStatus = false;
-    if (firstTerm[0] === '−' || firstTerm[0] === '-') {
-        firstTerm = firstTerm.substring(1);
+    if (currentOperator === '') {
+        if (firstTerm[0] === '−' || firstTerm[0] === '-') {
+            firstTerm = firstTerm.substring(1);
+        } else {
+            firstTerm = '−' + firstTerm;
+        }
     } else {
-        firstTerm = '−' + firstTerm;
+        if (secondTerm[0] === '−' || secondTerm[0] === '-') {
+            secondTerm = secondTerm.substring(1);
+        } else {
+            secondTerm = '−' + secondTerm;
+        }
     }
     updateDisplay();
 }
@@ -199,6 +207,8 @@ const factorial = (n) => {
 const computeExpression = (a, b) => {
     if (a[0] === '−') {
         a = a.replace('−', '-');
+    } else if (b[0] === '−') {
+        b = b.replace('−', '-');
     }
     return operate(parseFloat(a), parseFloat(b));
 }
