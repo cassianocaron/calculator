@@ -69,7 +69,7 @@ plusMinusBtn.onclick = () => {
         } else {
             firstTerm = '−' + firstTerm;
         }
-    } else {
+    } else if (currentOperator != '!') {
         if (secondTerm[0] === '−' || secondTerm[0] === '-') {
             secondTerm = secondTerm.substring(1);
         } else {
