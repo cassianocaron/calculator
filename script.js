@@ -207,10 +207,14 @@ const factorial = (n) => {
 const computeExpression = (a, b) => {
     if (a[0] === '−') {
         a = a.replace('−', '-');
-    } else if (b[0] === '−') {
-        b = b.replace('−', '-');
     }
-    return operate(parseFloat(a), parseFloat(b));
+    if (b != undefined) {
+        if (b[0] === '−') {
+            b = b.replace('−', '-');
+        }
+        return operate(parseFloat(a), parseFloat(b));
+    }
+    return operate(parseFloat(a));
 }
 
 const toggleCursor = (value) => {
