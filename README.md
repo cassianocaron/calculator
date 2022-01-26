@@ -6,8 +6,8 @@ You can access the **live preview** [here](https://cassianocaron.github.io/calcu
 
 ### Features:
 - Calculates a single pair of numbers at a time.
-- Operators are prevent from being pushed if there aren't any numbers on the screen yet.
-- Operators, decimal button and the plus minus button are also prevent from being pushed twice.
+- Operators are prevented from being pushed if there aren't any numbers on the screen yet.
+- Operators, decimal button and the plus minus button are also prevented from being pushed twice.
 - The equals button will only evalute if there's two operands and an operator on the screen.
 - If an invalid expression is typed in, the calculator will throw a **Syntax Error**.
 - Trying to divide by zero, calculate the factorial of a negative or decimal number will throw a **Math Error**.
