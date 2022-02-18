@@ -108,11 +108,11 @@ const clearAll = () => {
 }
 
 const deleteItem = () => {
-    if (secondTerm !== '') {
+    if (secondTerm) {
         secondTerm = secondTerm.slice(0, -1);
-    } else if (currentOperator !== '') {
+    } else if (currentOperator) {
         currentOperator = currentOperator.slice(0, -1);
-    } else if (firstTerm !== '') {
+    } else if (firstTerm) {
         firstTerm = firstTerm.slice(0, -1);
     }
     updateDisplay();
@@ -131,7 +131,7 @@ const appendNumber = (number) => {
 }
 
 const appendOperator = (operator) => {
-    if (firstTerm !== '') {
+    if (firstTerm) {
         currentOperator = operator;
     }
 }
