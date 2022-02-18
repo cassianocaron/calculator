@@ -48,7 +48,7 @@ operators.forEach(operator => {
         if (resultDisplay.textContent === 'Math Error' || resultDisplay.textContent === 'Syntax Error' || expression.length >= 24) {
             return;
         }
-        if (firstTerm && currentOperator && secondTerm) {
+        if (firstTerm && currentOperator && secondTerm && secondTerm[secondTerm.length - 1] !== '.') {
             result = computeExpression(firstTerm, secondTerm);
             updateResult();
             firstTerm = result.toString();
@@ -85,7 +85,7 @@ equalsBtn.onclick = () => {
         result = computeExpression(firstTerm);
         updateResult();
         updateDisplay();
-    } else if (firstTerm && currentOperator && secondTerm) {
+    } else if (firstTerm && currentOperator && secondTerm && secondTerm[secondTerm.length - 1] !== '.') {
         lastButtonPressed = 'equals';
         result = computeExpression(firstTerm, secondTerm);
         updateResult();
@@ -135,7 +135,7 @@ const appendNumber = (number) => {
 }
 
 const appendOperator = (operator) => {
-    if (firstTerm) {
+    if (firstTerm && firstTerm[firstTerm.length - 1] !== '.' && !secondTerm) {
         currentOperator = operator;
     }
 }
