@@ -120,10 +120,14 @@ const deleteItem = () => {
 
 const appendNumber = (number) => {
     if (number === '.') {
-        if (!firstTerm.includes('.') && !currentOperator) {
+        if (!firstTerm.includes('.') && firstTerm && !currentOperator) {
             firstTerm += number;
-        } else if (currentOperator && !secondTerm.includes('.')) {
+        } else if (!firstTerm && !currentOperator) {
+            firstTerm = "0" + number;
+        } else if (currentOperator && !secondTerm.includes('.') && secondTerm) {
             secondTerm += number;
+        } else if (currentOperator && !secondTerm) {
+            secondTerm = "0" + number;
         }
     } else {
         currentOperator === '' ? firstTerm += number : secondTerm += number;
