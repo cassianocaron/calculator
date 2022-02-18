@@ -63,7 +63,7 @@ operators.forEach(operator => {
 
 plusMinusBtn.onclick = () => {
     cursorStatus = false;
-    if (currentOperator === '') {
+    if (!currentOperator) {
         if (firstTerm[0] === '−' || firstTerm[0] === '-') {
             firstTerm = firstTerm.substring(1);
         } else {
@@ -120,14 +120,16 @@ const deleteItem = () => {
 
 const appendNumber = (number) => {
     if (number === '.') {
-        if (!firstTerm.includes('.') && firstTerm && !currentOperator) {
+        if ((!firstTerm.includes('.') && firstTerm && !currentOperator && firstTerm[0] !== '−') || 
+        (!firstTerm.includes('.') && firstTerm[0] === '−' && firstTerm.length > 1)) {
             firstTerm += number;
-        } else if (!firstTerm && !currentOperator) {
-            firstTerm = "0" + number;
-        } else if (currentOperator && !secondTerm.includes('.') && secondTerm) {
+        } else if ((!firstTerm && !currentOperator) || (!firstTerm.includes('.') && firstTerm[0] === '−' && firstTerm.length === 1)) {
+            firstTerm += "0" + number;
+        } else if ((currentOperator && !secondTerm.includes('.') && secondTerm && secondTerm[0] !== '−') ||
+        (!secondTerm.includes('.') && secondTerm[0] === '−' && secondTerm.length > 1)) {
             secondTerm += number;
-        } else if (currentOperator && !secondTerm) {
-            secondTerm = "0" + number;
+        } else if ((currentOperator && !secondTerm) || (!secondTerm.includes('.') && secondTerm[0] === '−' && secondTerm.length === 1)) {
+            secondTerm += "0" + number;
         }
     } else {
         currentOperator === '' ? firstTerm += number : secondTerm += number;
