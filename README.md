@@ -13,7 +13,7 @@ You can access the **live preview** [here](https://cassianocaron.github.io/calcu
 - Trying to divide by zero, calculate the factorial of a negative or decimal number will throw a **Math Error**.
 - Keyboard support will be added soon.
 
-### Suported Operations:
+### Supported Operations:
 - **Factorial**
 - **Division**
 - **Multiplication**
