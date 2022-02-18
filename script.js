@@ -34,7 +34,7 @@ numbers.forEach(number => {
             clearUpperDisplay();
             lastButtonPressed = 'number';
         }
-        if (currentOperator != '!') {
+        if (currentOperator !== '!') {
             appendNumber(number.innerText);
         }
         updateDisplay();
@@ -48,12 +48,12 @@ operators.forEach(operator => {
         if (resultDisplay.textContent === 'Math Error' || resultDisplay.textContent === 'Syntax Error' || expression.length >= 24) {
             return;
         }
-        if (firstTerm != '' && currentOperator != '' && secondTerm != '') {
+        if (firstTerm && currentOperator && secondTerm) {
             result = computeExpression(firstTerm, secondTerm);
             updateResult();
             firstTerm = result.toString();
             secondTerm = '';
-        } else if (firstTerm != '' && currentOperator === '!' && result != 0) {
+        } else if (firstTerm && currentOperator === '!' && result !== 0) {
             firstTerm = result.toString();
         }
         operator.innerText === 'n!' ? appendOperator('!') : appendOperator(operator.innerText);
@@ -69,7 +69,7 @@ plusMinusBtn.onclick = () => {
         } else {
             firstTerm = '−' + firstTerm;
         }
-    } else if (currentOperator != '!') {
+    } else if (currentOperator !== '!') {
         if (secondTerm[0] === '−' || secondTerm[0] === '-') {
             secondTerm = secondTerm.substring(1);
         } else {
@@ -80,12 +80,12 @@ plusMinusBtn.onclick = () => {
 }
 
 equalsBtn.onclick = () => {
-    if (firstTerm != '' && currentOperator === '!') {
+    if (firstTerm && currentOperator === '!') {
         lastButtonPressed = 'equals';
         result = computeExpression(firstTerm);
         updateResult();
         updateDisplay();
-    } else if (firstTerm != '' && currentOperator != '' && secondTerm != '') {
+    } else if (firstTerm && currentOperator && secondTerm) {
         lastButtonPressed = 'equals';
         result = computeExpression(firstTerm, secondTerm);
         updateResult();
@@ -108,11 +108,11 @@ const clearAll = () => {
 }
 
 const deleteItem = () => {
-    if (secondTerm != '') {
+    if (secondTerm !== '') {
         secondTerm = secondTerm.slice(0, -1);
-    } else if (currentOperator != '') {
+    } else if (currentOperator !== '') {
         currentOperator = currentOperator.slice(0, -1);
-    } else if (firstTerm != '') {
+    } else if (firstTerm !== '') {
         firstTerm = firstTerm.slice(0, -1);
     }
     updateDisplay();
@@ -120,9 +120,9 @@ const deleteItem = () => {
 
 const appendNumber = (number) => {
     if (number === '.') {
-        if (!firstTerm.includes('.') && currentOperator === '') {
+        if (!firstTerm.includes('.') && !currentOperator) {
             firstTerm += number;
-        } else if (currentOperator != '' && !secondTerm.includes('.')) {
+        } else if (currentOperator && !secondTerm.includes('.')) {
             secondTerm += number;
         }
     } else {
@@ -131,13 +131,13 @@ const appendNumber = (number) => {
 }
 
 const appendOperator = (operator) => {
-    if (firstTerm != '') {
+    if (firstTerm !== '') {
         currentOperator = operator;
     }
 }
 
 const updateResult = () => {
-    if (typeof result === 'number' && result != 0) {
+    if (typeof result === 'number' && result !== 0) {
         if ((result.toString()).length >= 15 && (result > 100000000 || result < -100000000)) {
             result = (result.toExponential(9)).replace(/(\.[0-9]*[1-9])0*|(\.0*)/, "$1");
         } else {
@@ -151,7 +151,7 @@ const updateDisplay = () => {
     upperDisplay.textContent = expression;
     resultDisplay.textContent = result;
 
-    if (isNaN(result) && result != 'Not defined') {
+    if (isNaN(result) && result !== 'Not defined') {
         toggleCursor('off');
         upperDisplay.textContent = '';
         resultDisplay.textContent = 'Syntax Error';
@@ -208,7 +208,7 @@ const computeExpression = (a, b) => {
     if (a[0] === '−') {
         a = a.replace('−', '-');
     }
-    if (b != undefined) {
+    if (b !== undefined) {
         if (b[0] === '−') {
             b = b.replace('−', '-');
         }
