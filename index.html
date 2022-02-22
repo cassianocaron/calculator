@@ -5,12 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <!--<script src="https://kit.fontawesome.com/4c536a6bd5.js" crossorigin="anonymous"></script>-->
+    <script src="https://kit.fontawesome.com/4c536a6bd5.js" crossorigin="anonymous"></script>
     <script src="script.js" defer></script>
     <title>Calculator</title>
 </head>
 <body>
-    <div class="container">
+    <header class="header">
+        <h1 class="title">Calculator</h1>
+    </header>
+    <main class="main">
         <div class="wrapper">
             <div class="display">
                 <div id="input">
@@ -50,6 +53,12 @@
                 <button type="button" id="equals-btn">=</button>
             </div>
         </div>
-    </div>    
+    </main>
+    <footer class="footer">
+        <div>Copyright &#169; <script>document.write(new Date().getFullYear())</script> - Cassiano Caron</div>
+            <a href="https://github.com/cassianocaron" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+    </footer> 
 </body>
 </html>
