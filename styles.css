@@ -26,6 +26,8 @@ html, body {
     padding: 20px;
 }
 
+/* HEADER */
+
 .header {
     height: 40%;
     display: flex;
@@ -36,6 +38,8 @@ html, body {
     font-size: 3.5em;
     color: #333333;
 }
+
+/* MAIN */
 
 .main {
     font-family: 'Noto Sans Mono', monospace;
@@ -149,6 +153,8 @@ html, body {
     color: black;
 }
 
+/* FOOTER */
+
 .footer {
     display: flex;
     justify-content: center;
@@ -165,4 +171,13 @@ html, body {
   
 .fa-github:hover {
     transform: rotate(360deg) scale(1.2);
+}
+
+/* MEDIA QUERIES */
+
+@media only screen and (max-width: 650px) {
+    .header {
+        height: 25%;
+        font-size: 3em;
+    }
 }
