@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&family=Roboto+Slab&display=swap');
 
 html, body {
-    font-family: 'Roboto Mono', monospace;
     height: 100%;
     margin: 0;
     padding: 0;
@@ -13,9 +12,13 @@ html, body {
     box-sizing: inherit;
 }
 
+.header, .footer {
+    font-family: 'Roboto Slab', sans-serif;
+}
+
 .header {
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.6em;
     color: #333333;
     position: absolute;
     top: 0;
@@ -25,6 +28,7 @@ html, body {
 }
 
 .main {
+    font-family: 'Noto Sans Mono', monospace;
     height: 100%;
     display: flex;
     align-items: center;
