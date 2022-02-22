@@ -121,7 +121,7 @@ const deleteItem = () => {
 const appendNumber = (number) => {
     if (number === '.') {
         if ((!firstTerm.includes('.') && firstTerm && !currentOperator && firstTerm[0] !== '−') || 
-        (!firstTerm.includes('.') && firstTerm[0] === '−' && firstTerm.length > 1)) {
+        (!firstTerm.includes('.') && firstTerm[0] === '−' && firstTerm.length > 1 && !currentOperator)) {
             firstTerm += number;
         } else if ((!firstTerm && !currentOperator) || (!firstTerm.includes('.') && firstTerm[0] === '−' && firstTerm.length === 1)) {
             firstTerm += "0" + number;
