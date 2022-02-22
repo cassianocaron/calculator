@@ -137,7 +137,7 @@ const appendNumber = (number) => {
 }
 
 const appendOperator = (operator) => {
-    if (firstTerm && firstTerm[firstTerm.length - 1] !== '.' && !secondTerm) {
+    if (firstTerm && firstTerm[firstTerm.length - 1] !== '.' && !secondTerm && !(firstTerm.length === 1 && firstTerm[0] === '−')) {
         currentOperator = operator;
     }
 }
